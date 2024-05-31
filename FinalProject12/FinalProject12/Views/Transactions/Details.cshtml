@@ -1,0 +1,147 @@
+@model FinalProject12.Models.Transaction
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<<h2>Transaction Details</h2>
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt class="col-sm-2">
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TransactionNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AppUser.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AppUser.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfTickets)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfTickets)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderSubtotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderSubtotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PopcornPoints)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PopcornPoints)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionStatus)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TransactionStatus)
+        </dd>
+        @*@Html.DisplayNameFor(model => model.TransactionNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TransactionNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AppUser.FullName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AppUser.FullName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NumberOfTickets)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NumberOfTickets)
+            </dd>
+
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OrderDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.OrderSubtotal)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OrderSubtotal)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PopcornPoints)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PopcornPoints)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TransactionStatus)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TransactionStatus)
+            </dd>*@
+    </dl>
+</div>
+
+<h5>Movies on this Transaction</h5>
+<table class="table table-primary">
+    <tr>
+        <th>Movie Title</th>
+        <th>Ticket Price</th>
+        <th>Seat Numbers</th>
+        <th>Subtotal Price</th>
+    </tr>
+    @foreach (TransactionDetail rd in Model.TransactionDetails)
+    {
+        <tr>
+            <td>@Html.DisplayFor(ModelItem => rd.Movie.MovieName)</td>
+            <td>@Html.DisplayFor(ModelItem => rd.TicketPrice)</td>
+            <td>@Html.DisplayFor(ModelItem => rd.SeatNumber)</td>
+            @*<td>@Html.DisplayFor(ModelItem => rd.Su)</td>*@
+        </tr>
+    }
+</table>
+
+<h5>Order Summary</h5>
+<table class="table table-sm table-bordered" style="width:30%">
+    <tr>
+        <th colspan="2" style="text-align:center">Registration Summary</th>
+    </tr>
+    <tr>
+        <td>Order Subtotal:</td>
+        <td>@Html.DisplayFor(model => model.OrderSubtotal)</td>
+    </tr>
+    <tr>
+        <td>Tax:</td>
+        <td>@Html.DisplayFor(model => model.OrderTax)</td>
+    </tr>
+    <tr>
+        <td>Order Total:</td>
+        <td>@Html.DisplayFor(model => model.OrderTotal)</td>
+    </tr>
+
+</table>
+
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TransactionID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,143 @@
+@model FinalProject12.Models.Movie
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create New Movie</h1>
+
+<h4></h4>
+<hr />
+
+<style>
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-control {
+        border: 2px solid #000;
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+
+    fieldset {
+        position: relative; /* Set the fieldset to relative positioning */
+        border: 4px solid #0667A6;
+        padding: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+    }
+
+        fieldset:before {
+            content: ''; /* Create an empty nested element */
+            position: absolute; /* Set the nested element to absolute positioning */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F8F8F8; /* Set the desired background color */
+            z-index: -1; /* Position the background layer behind the text boxes */
+        }
+
+        fieldset legend {
+            font-weight: bold;
+            padding: 5px;
+            border: 2px solid #0667A6;
+            background-color: #DCEDF8;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+    .form-group textarea {
+        height: 50px;
+    }
+
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <fieldset class="form-group">
+                    <legend>Movie Information</legend>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="MovieName" class="control-label">Movie Name</label>
+                                <input asp-for="MovieName" style="width: 100%" class="form-control" />
+                                <span asp-validation-for="MovieName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="MovieDescription" class="control-label">Movie Description</label>
+                                <textarea asp-for="MovieDescription" rows="3" style="width: 100%" class="form-control"></textarea>
+                                <span asp-validation-for="MovieDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="ReleaseYear" class="control-label">Release Year</label>
+                                <input asp-for="ReleaseYear" type="number" min="1900" max="2999" style="width: 100%" class="form-control" />
+                                <span asp-validation-for="ReleaseYear" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Runtime" class="control-label">Runtime (in minutes)</label>
+                                <input asp-for="Runtime" type="number" min="0" style="width: 100%" class="form-control" />
+                                <span asp-validation-for="Runtime" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Actor" class="control-label">Leading Actor</label>
+                                <input asp-for="Actor" style="width: 100%" class="form-control" />
+                                <span asp-validation-for="Actor" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Tagline" class="control-label">Tagline</label>
+                        <input asp-for="Tagline" style="width: 100%" class="form-control" />
+                        <span asp-validation-for="Tagline" class="text-danger"></span>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <legend>Genre</legend>
+
+                    <p>Select "New Genre" and then type the genre name in the textbox.</p>
+
+                    <label class="control-label">Genre</label>
+                    @Html.DropDownList("SelectedGenre", (SelectList)ViewBag.AllGenres, new { @class = "form-control" })
+
+
+                    <label class="control-label">New Genre Name</label>
+                    <input type="text" class="form-control" id="NewGenreName">
+                </fieldset>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

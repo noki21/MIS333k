@@ -1,0 +1,77 @@
+@model IEnumerable<FinalProject12.Models.Schedule>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Showtimes</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<style>
+    .schedule-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .schedule-card {
+        flex: 0 1 calc(25% - 10px);
+        margin: 5px;
+        background-color: #fff;
+        border: 1px solid #000080;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+    }
+
+        .schedule-card h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .schedule-card p {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+        }
+</style>
+
+<form asp-action="Index" asp-controller="Schedules" method="get">
+    <p class="form-group">
+        Search: <input name="SearchString" class="form-control" /><br />
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a asp-action="DetailedSearch" class="btn btn-success">Search By Date</a>
+        <a asp-action="Index" class="btn btn-danger">Show All</a>
+    </p>
+</form>
+
+<div class="schedule-container">
+    @foreach (var item in Model)
+    {
+        <div class="schedule-card">
+            <h2>@item.Movie.MovieName</h2>
+            <p>Start Date and Time: @item.StartDateTime</p>
+            <p>Theater Number: @item.TheaterNumber</p>
+            @if (item.SpecialEvent != null)
+            {
+                <p>Special Event: @item.SpecialEvent</p>
+            }
+
+            <p>MPAA Rating: @item.Movie.MPAA_Rating</p>
+        
+            <div class="action-buttons">
+                <a asp-action="Edit" asp-route-id="@item.ScheduleID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ScheduleID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ScheduleID">Delete</a>
+            </div>
+        </div>
+    }
+</div>

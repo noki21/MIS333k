@@ -1,0 +1,106 @@
+@model IEnumerable<FinalProject12.Models.Movie>
+
+<style>
+
+
+    .main-heading {
+        font-size: 36px; /* Adjust the font size as needed */
+        color: #DCEDF8; /* Set the text color */
+        background-color: #000080; /* Replace with your desired color */
+        text-align: left; /* Center the text horizontally */
+        padding: 10px;
+        text-transform: uppercase; /* Convert text to uppercase */
+        font-weight: bold; /* Set font weight to bold */
+        margin-bottom: 20px; /* Add margin at the bottom for spacing */
+        text-shadow: 2px 2px 4px rgba(0, 0, 255, 0.5); /* Deep blue text shadow */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    .movie-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .movie-card {
+        width: 100%;
+        margin: 5px;
+        background-color: #DCEDF8;
+        border: 1px solid #000080;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+    }
+
+        .movie-card h2 {
+            color: #000080;
+            margin-bottom: 10px;
+        }
+
+        .movie-card h4, .movie-card p {
+            margin-bottom: 10px;
+        }
+
+    .showtime-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-gap: 10px;
+        margin: 5px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        list-style: none;
+        padding: 0;
+    }
+
+    .btn-primary {
+        border-color: #007bff;
+        background-color: #007bff;
+        color: #fff;
+    }
+</style>
+
+<h1 class="main-heading">Now Showing:</h1>
+
+<!-- Existing actions and search form -->
+
+<div class="movie-container">
+    @foreach (var item in Model)
+    {
+        <div class="movie-card">
+            <h2>@Html.DisplayFor(modelItem => item.MovieName)</h2>
+            <p><strong>Description:</strong> @Html.DisplayFor(modelItem => item.MovieDescription)</p>
+            <p><strong>Genre:</strong> @Html.DisplayFor(modelItem => item.Genre.GenreName)</p>
+            <p><strong>Release Year:</strong> @Html.DisplayFor(modelItem => item.ReleaseYear)</p>
+            <p><strong>MPAA Rating:</strong> @Html.DisplayFor(modelItem => item.MPAA_Rating)</p>
+            <p><strong>Runtime:</strong> @Html.DisplayFor(modelItem => item.Runtime) minutes</p>
+            <p><strong>Actors:</strong> @Html.DisplayFor(modelItem => item.Actor)</p>
+            <p><strong>Tagline:</strong> @Html.DisplayFor(modelItem => item.Tagline)</p>
+            <p>
+                <strong>Average Rating:</strong>
+                @if (item.RatingsAvg == 0)
+                {
+                    @:There are currently no ratings for this movie
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.RatingsAvg)
+                }
+            </p>
+           
+
+            <h4>Showtimes</h4>
+            <ul class="showtime-buttons">
+                @foreach (Schedule schedule in item.Schedules)
+                {
+                    if (schedule.StartDateTime >= DateTime.Now)
+                    {
+                        <li><a asp-controller="Schedules" asp-action="Details" asp-route-id="@schedule.ScheduleID" class="btn btn-primary">@schedule.StartDateTime.ToString("MM/dd hh:mm tt")</a></li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+</div>
